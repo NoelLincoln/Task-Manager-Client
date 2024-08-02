@@ -23,7 +23,7 @@ jobs:
     - uses: actions/checkout@v3
 
     - name: Lint client code
-      run: npm run lint:fix
+      run: npm run lint
 
   stylelint:
     name: Stylelint
