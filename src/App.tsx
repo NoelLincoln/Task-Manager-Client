@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
-import toast, { Toaster } from 'react-hot-toast';
-import './App.css';
-import { Player } from '@lottiefiles/react-lottie-player';
-import Modal from './components/Modal';
-import Navbar from './components/Navbar';
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
+import toast, { Toaster } from "react-hot-toast";
+import "./App.css";
+import { Player } from "@lottiefiles/react-lottie-player";
+import Modal from "./components/Modal";
+import Navbar from "./components/Navbar";
 
 interface Task {
   _id: string;
@@ -17,18 +17,18 @@ interface Task {
 
 function App() {
   const [tasks, setTasks] = useState<Task[]>([]);
-  const [taskName, setTaskName] = useState('');
-  const [taskDescription, setTaskDescription] = useState('');
+  const [taskName, setTaskName] = useState("");
+  const [taskDescription, setTaskDescription] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentTask, setCurrentTask] = useState<Task | null>(null);
 
   const fetchTasks = async () => {
     try {
-      const response = await axios.get('api/v1/tasks');
+      const response = await axios.get("api/v1/tasks");
       setTasks(response.data.tasks);
     } catch (fetch_error) {
-      setError('Failed to fetch tasks');
+      setError("Failed to fetch tasks");
     }
   };
 
@@ -38,7 +38,7 @@ function App() {
 
   const addTask = async () => {
     if (!taskName || !taskDescription) {
-      setError('Please fill in all fields');
+      setError("Please fill in all fields");
       return;
     }
 
@@ -49,14 +49,14 @@ function App() {
         completed_status: false,
       };
 
-      const response = await axios.post('api/v1/tasks', newTask);
+      const response = await axios.post("api/v1/tasks", newTask);
       setTasks([...tasks, response.data.task]);
-      setTaskName('');
-      setTaskDescription('');
+      setTaskName("");
+      setTaskDescription("");
       setError(null);
-      toast.success('Task added successfully!');
+      toast.success("Task added successfully!");
     } catch (add_task_error) {
-      setError('Failed to add task');
+      setError("Failed to add task");
     }
   };
 
@@ -82,9 +82,9 @@ function App() {
       );
       setIsModalOpen(false);
       setCurrentTask(null);
-      toast.success('Task updated successfully!');
+      toast.success("Task updated successfully!");
     } catch (update_task_error) {
-      setError('Failed to update task');
+      setError("Failed to update task");
     }
   };
 
@@ -92,9 +92,9 @@ function App() {
     try {
       await axios.delete(`api/v1/tasks/${id}`);
       setTasks(tasks.filter((task) => task._id !== id));
-      toast.success('Task deleted successfully!');
+      toast.success("Task deleted successfully!");
     } catch (delete_task_error) {
-      setError('Failed to delete task');
+      setError("Failed to delete task");
     }
   };
 
@@ -147,7 +147,7 @@ function App() {
                   <h3 className="text-xl font-semibold">{task.task_name}</h3>
                   <p>{task.task_description}</p>
                   <p>
-                    Status: {task.completed_status ? 'Completed' : 'Incomplete'}
+                    Status: {task.completed_status ? "Completed" : "Incomplete"}
                   </p>
                 </div>
                 <div className="flex items-center justify-end space-x-2">
