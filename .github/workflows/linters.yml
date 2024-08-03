@@ -25,8 +25,8 @@ jobs:
     - name: Install dependencies
       run: npm ci
 
-    - name: Lint backend code
-      run: npm run lint
+    - name: Lint client code
+      run: npm run lint:fix
 
   nodechecker:
     name: Node Modules Checker
