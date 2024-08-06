@@ -1,0 +1,32 @@
+name: Deploy Task Manager Frontend
+
+on: 
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Source
+        uses: actions/checkout@v4
+      - name: Login to docker hub
+        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}     
+      - name: Build Docker Image
+        run: docker build -t lincoln1000/task-manager-frontend
+
+
+      - name: Publish Image to docker hub
+        run: docker push lincoln1000/task-manager-frontend:latest
+ 
+  deploy:
+    needs: build
+    runs-on: self-hosted 
+    steps:
+      - name: Pull image from docker hub
+        run: docker pull lincoln1000/task-manager-frontend:latest
+      - name: Delete old container
+        run: docker rm -f task-manager-frontend-container (Old Container Name if any/New container Name)
+      - name: Run Docker Container
+        run: docker run -d -p 8000:8000 --name task-manager-frontend-container lincoln1000/task-manager-frontend

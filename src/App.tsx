@@ -25,7 +25,7 @@ function App() {
 
   const fetchTasks = async () => {
     try {
-      const response = await axios.get("api/v1/tasks");
+      const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/tasks`);
       setTasks(response.data.tasks);
     } catch (fetch_error) {
       setError("Failed to fetch tasks");
@@ -49,7 +49,7 @@ function App() {
         completed_status: false,
       };
 
-      const response = await axios.post("api/v1/tasks", newTask);
+      const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}tasks`, newTask);
       setTasks([...tasks, response.data.task]);
       setTaskName("");
       setTaskDescription("");
@@ -74,7 +74,7 @@ function App() {
         task_name: name,
         task_description: description,
       };
-      await axios.patch(`api/v1/tasks/${currentTask._id}`, updatedTask);
+      await axios.patch(`${process.env.REACT_APP_API_BASE_URL}/tasks/${currentTask._id}`, updatedTask);
       setTasks(
         tasks.map((task) =>
           task._id === currentTask._id ? updatedTask : task,
@@ -90,7 +90,7 @@ function App() {
 
   const deleteTask = async (id: string) => {
     try {
-      await axios.delete(`api/v1/tasks/${id}`);
+      await axios.delete(`${process.env.REACT_APP_API_BASE_URL}/tasks/${id}`);
       setTasks(tasks.filter((task) => task._id !== id));
       toast.success("Task deleted successfully!");
     } catch (delete_task_error) {
