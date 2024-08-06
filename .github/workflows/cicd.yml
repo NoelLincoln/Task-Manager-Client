@@ -29,4 +29,4 @@ jobs:
       - name: Delete old container
         run: docker rm -f task-manager-frontend-container
       - name: Run Docker Container
-        run: docker run -d -p 8000:8000 --name task-manager-frontend-container lincoln1000/task-manager-frontend
+        run: docker run -d -p 8000:80 --name task-manager-frontend-container lincoln1000/task-manager-frontend
