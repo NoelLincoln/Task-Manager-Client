@@ -27,6 +27,6 @@ jobs:
       - name: Pull image from docker hub
         run: docker pull lincoln1000/task-manager-frontend:latest
       - name: Delete old container
-        run: docker rm -f task-manager-frontend-container (Old Container Name if any/New container Name)
+        run: docker rm -f task-manager-frontend-container
       - name: Run Docker Container
         run: docker run -d -p 8000:8000 --name task-manager-frontend-container lincoln1000/task-manager-frontend
